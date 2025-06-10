@@ -30,7 +30,24 @@ Este projeto segue os princípios de Clean Architecture, SOLID e Clean Code, org
 ```
 
 ## Como executar
-*(Instruções serão adicionadas conforme o desenvolvimento)*
+
+### Setup inicial (primeira vez)
+```bash
+./setup.sh
+```
+
+### Executar aplicação
+```bash
+./run.sh
+```
+
+### Manualmente
+```bash
+source venv/bin/activate
+python app.py
+```
+
+Acesse: http://127.0.0.1:5000
 
 ## Como executar os testes
 *(Instruções serão adicionadas conforme o desenvolvimento)*
