@@ -49,8 +49,38 @@ python app.py
 
 Acesse: http://127.0.0.1:5000
 
+## Funcionalidades Implementadas
+
+### ✅ Domain Layer (Domínio)
+- **Entidade Task**: Modelo principal com validações
+- **Exceções customizadas**: TaskValidationError, TaskNotFoundError
+- **Interface TaskDatabase**: Contrato para repositórios
+
+### ✅ Application Layer (Casos de Uso)
+- **CreateTaskUseCase**: Criar novas tarefas
+- **GetAllTasksUseCase**: Listar todas as tarefas
+- **UpdateTaskUseCase**: Atualizar tarefas (título, descrição, status)
+- **DeleteTaskUseCase**: Remover tarefas
+
+### ✅ Infrastructure Layer (Infraestrutura)
+- **DictTaskDatabase**: Implementação em memória do repositório
+
+### ✅ Testes
+- Testes unitários para entidade Task
+- Testes para todos os casos de uso
+
 ## Como executar os testes
-*(Instruções serão adicionadas conforme o desenvolvimento)*
+```bash
+# Ativar ambiente virtual
+source venv/bin/activate
+
+# Executar todos os testes
+pytest
+
+# Executar testes específicos
+pytest tests/test_task.py
+pytest tests/test_use_cases.py
+```
 
 ## Autor
 Trabalho desenvolvido para a disciplina de Engenharia de Software - 5º período
