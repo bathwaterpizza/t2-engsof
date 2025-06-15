@@ -3,6 +3,8 @@ Ponto de entrada da aplicação To-Do List
 """
 
 from flask import Flask, render_template
+from src.presentation.task_routes import task_bp
+from src.presentation.category_routes import category_bp
 
 
 def create_app():
@@ -11,6 +13,10 @@ def create_app():
 
     # Configurações básicas
     app.config["SECRET_KEY"] = "dev-secret-key"  # Apenas para desenvolvimento
+
+    # Registro dos blueprints das rotas de API
+    app.register_blueprint(task_bp)
+    app.register_blueprint(category_bp)
 
     @app.route("/")
     def index():
