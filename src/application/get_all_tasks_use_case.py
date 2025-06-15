@@ -1,12 +1,12 @@
 from typing import List
 from ..domain.task import Task
-from ..domain.task_database import TaskDatabase
+from ..domain.database import Database
 
 
 class GetAllTasksUseCase:
     """Caso de uso para buscar todas as tarefas"""
 
-    def __init__(self, task_repository: TaskDatabase):
+    def __init__(self, task_repository: Database[Task]):
         self._task_repository = task_repository
 
     def execute(self) -> List[Task]:

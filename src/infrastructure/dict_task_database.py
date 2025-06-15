@@ -1,10 +1,10 @@
 from typing import List, Optional, Dict
 from ..domain.task import Task
-from ..domain.task_database import TaskDatabase
+from ..domain.database import Database
 
 
-class DictTaskDatabase(TaskDatabase):
-    """Implementação em memória do repositório de tarefas, simulando um BD"""
+class DictTaskDatabase(Database[Task]):
+    """Implementação em memória do banco de dados de tarefas"""
 
     def __init__(self):
         self._tasks: Dict[str, Task] = {}

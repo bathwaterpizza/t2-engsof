@@ -1,13 +1,13 @@
 from typing import Optional
 from ..domain.task import Task
-from ..domain.task_database import TaskDatabase
+from ..domain.database import Database
 from ..domain.exceptions import TaskNotFoundError
 
 
 class UpdateTaskUseCase:
     """Caso de uso para atualizar uma tarefa"""
 
-    def __init__(self, task_repository: TaskDatabase):
+    def __init__(self, task_repository: Database[Task]):
         self._task_repository = task_repository
 
     def execute(

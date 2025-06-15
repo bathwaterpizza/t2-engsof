@@ -1,11 +1,12 @@
-from ..domain.task_database import TaskDatabase
+from src.domain.task import Task
+from ..domain.database import Database
 from ..domain.exceptions import TaskNotFoundError
 
 
 class DeleteTaskUseCase:
     """Caso de uso para deletar uma tarefa"""
 
-    def __init__(self, task_repository: TaskDatabase):
+    def __init__(self, task_repository: Database[Task]):
         self._task_repository = task_repository
 
     def execute(self, task_id: str) -> bool:
