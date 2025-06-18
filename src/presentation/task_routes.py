@@ -16,9 +16,12 @@ def create_task():
     data = request.get_json()
     title = data.get("title")
     description = data.get("description")
+    category_id = data.get("category_id")  # Novo: lê o campo category_id
     use_case = CreateTaskUseCase(task_repo)
     try:
-        task = use_case.execute(title, description)
+        task = use_case.execute(
+            title, description, category_id=category_id
+        )  # Passa category_id
         return jsonify(task.to_dict()), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 400
@@ -37,10 +40,15 @@ def update_task(task_id):
     title = data.get("title")
     description = data.get("description")
     completed = data.get("completed")
+    category_id = data.get("category_id")  # Novo: lê o campo category_id
     use_case = UpdateTaskUseCase(task_repo)
     try:
         task = use_case.execute(
-            task_id, title=title, description=description, completed=completed
+            task_id,
+            title=title,
+            description=description,
+            completed=completed,
+            category_id=category_id,  # Passa category_id
         )
         return jsonify(task.to_dict()), 200
     except TaskNotFoundError as e:

@@ -27,6 +27,14 @@ class TestCreateTaskUseCase:
         assert not task.completed
         assert repository.count_all() == 1
 
+    def test_create_task_with_category(self):
+        """Teste criação de tarefa com categoria"""
+        repository = DictTaskDatabase()
+        use_case = CreateTaskUseCase(repository)
+        task = use_case.execute("Tarefa com categoria", category_id="cat-1")
+        assert task.category_id == "cat-1"
+        assert repository.count_all() == 1
+
 
 class TestGetAllTasksUseCase:
     """Testes para listagem de tarefas"""
@@ -110,6 +118,15 @@ class TestUpdateTaskUseCase:
 
         with pytest.raises(TaskNotFoundError):
             use_case.execute("id-inexistente", title="Novo título")
+
+    def test_update_task_category(self):
+        """Teste atualização da categoria da tarefa"""
+        repository = DictTaskDatabase()
+        task = Task("Tarefa", category_id="cat-1")
+        repository.save(task)
+        use_case = UpdateTaskUseCase(repository)
+        updated_task = use_case.execute(task.id, category_id="cat-2")
+        assert updated_task.category_id == "cat-2"
 
 
 class TestDeleteTaskUseCase:

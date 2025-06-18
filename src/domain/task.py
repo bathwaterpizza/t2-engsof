@@ -15,6 +15,7 @@ class Task:
         completed: bool = False,
         created_at: Optional[datetime] = None,
         updated_at: Optional[datetime] = None,
+        category_id: Optional[str] = None,
     ):
         """
         Inicializa uma nova tarefa.
@@ -27,6 +28,7 @@ class Task:
         self.completed = completed
         self.created_at = created_at or datetime.now()
         self.updated_at = updated_at or datetime.now()
+        self.category_id = category_id
 
     def _validate_title(self, title: str) -> None:
         """
@@ -86,7 +88,7 @@ class Task:
         """
         Converte a tarefa para um dicionário.
         """
-        return {
+        d = {
             "id": self.id,
             "title": self.title,
             "description": self.description,
@@ -94,6 +96,9 @@ class Task:
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),
         }
+        if self.category_id:
+            d["category_id"] = self.category_id
+        return d
 
     @classmethod
     def from_dict(cls, data: dict) -> "Task":
@@ -111,6 +116,7 @@ class Task:
             updated_at=datetime.fromisoformat(data["updated_at"])
             if data.get("updated_at")
             else None,
+            category_id=data.get("category_id"),
         )
 
     def __eq__(self, other) -> bool:

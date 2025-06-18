@@ -115,3 +115,29 @@ def test_task_equality():
 
     assert task1 == task2  # Mesmo ID
     assert task1 != task3  # IDs diferentes
+
+
+def test_create_task_with_category():
+    """Teste criação de tarefa com categoria"""
+    task = Task("Tarefa com categoria", category_id="cat-123")
+    assert task.category_id == "cat-123"
+
+
+def test_task_to_dict_with_category():
+    """Teste conversão para dicionário incluindo categoria"""
+    task = Task("Tarefa com categoria", category_id="cat-xyz")
+    d = task.to_dict()
+    assert d["category_id"] == "cat-xyz"
+
+
+def test_task_from_dict_with_category():
+    """Teste criação a partir de dicionário com categoria"""
+    data = {
+        "id": "id-1",
+        "title": "Tarefa",
+        "category_id": "cat-abc",
+        "created_at": "2025-06-14T00:00:00",
+        "updated_at": "2025-06-14T00:00:00",
+    }
+    task = Task.from_dict(data)
+    assert task.category_id == "cat-abc"

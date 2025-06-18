@@ -16,6 +16,7 @@ class UpdateTaskUseCase:
         title: Optional[str] = None,
         description: Optional[str] = None,
         completed: Optional[bool] = None,
+        category_id: Optional[str] = None,
     ) -> Task:
         """Executa a atualização de uma tarefa"""
         task = self._task_repository.find_by_id(task_id)
@@ -33,5 +34,8 @@ class UpdateTaskUseCase:
                 task.mark_as_completed()
             else:
                 task.mark_as_pending()
+
+        if category_id is not None:
+            task.category_id = category_id
 
         return self._task_repository.update(task)
