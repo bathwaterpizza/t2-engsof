@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from src.infrastructure.dict_task_database import DictTaskDatabase
+from src.infrastructure.sqlite_task_database import SQLiteTaskDatabase
 from src.application.create_task_use_case import CreateTaskUseCase
 from src.application.get_all_tasks_use_case import GetAllTasksUseCase
 from src.application.update_task_use_case import UpdateTaskUseCase
@@ -8,7 +8,7 @@ from src.domain.exceptions import TaskNotFoundError
 
 
 task_bp = Blueprint("task_bp", __name__, url_prefix="/api/tasks")
-task_repo = DictTaskDatabase()
+task_repo = SQLiteTaskDatabase()
 
 
 @task_bp.route("/", methods=["POST"])

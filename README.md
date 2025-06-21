@@ -13,6 +13,7 @@ Este projeto segue os princípios de Clean Architecture, SOLID e Clean Code, org
 
 ## Tecnologias
 - Backend: Flask (Python)
+- Banco de dados: SQLite
 - Frontend: HTML, CSS, JavaScript
 - Testes: pytest
 
@@ -71,8 +72,11 @@ Acesse: http://127.0.0.1:5000
 - **DeleteCategoryUseCase**: Remover categorias
 
 ### ✅ Infrastructure Layer (Infraestrutura)
-- **DictTaskDatabase**: Implementação em memória do repositório de tarefas
-- **DictCategoryDatabase**: Implementação em memória do repositório de categorias
+- **SQLiteTaskDatabase**: Implementação SQLite do repositório de tarefas (persistência em banco de dados)
+- **SQLiteCategoryDatabase**: Implementação SQLite do repositório de categorias (persistência em banco de dados)
+- **SQLiteBase**: Classe base para gerenciar conexões SQLite
+- **DictTaskDatabase**: Implementação em memória do repositório de tarefas (para testes)
+- **DictCategoryDatabase**: Implementação em memória do repositório de categorias (para testes)
 
 ### ✅ Presentation Layer (API)
 - **Rotas RESTful para tarefas**: CRUD completo, aceita e retorna category_id
@@ -86,6 +90,7 @@ Acesse: http://127.0.0.1:5000
 ### ✅ Testes
 - Testes unitários para entidade Task e Category
 - Testes para todos os casos de uso de Task e Category
+- Testes de integração para implementações SQLite
 - Testes cobrem category_id e integração entre tarefas e categorias
 
 ## Como executar os testes
@@ -101,10 +106,14 @@ pytest tests/test_task.py
 pytest tests/test_task_use_cases.py
 pytest tests/test_category.py
 pytest tests/test_category_use_cases.py
+pytest tests/test_sqlite_task_database.py
+pytest tests/test_sqlite_category_database.py
 ```
 
 ## Documentação e Observações
-- O projeto está pronto para entrega/demonstração conforme requisitos do trabalho.
+- **Persistência**: O projeto agora utiliza SQLite para persistência de dados. O banco de dados é criado automaticamente na primeira execução.
+- **Arquitetura**: Implementa Clean Architecture com separação clara de responsabilidades entre as camadas.
+- **Testes**: Os casos de uso utilizam implementações em memória para isolamento, enquanto testes específicos validam a integração SQLite.
 - Código revisado para PEP-8, com docstrings sucintas e comentários explicativos.
 - Scripts de setup e execução documentados.
 - README atualizado para refletir toda a arquitetura, funcionalidades, instruções de uso, testes e status do projeto.

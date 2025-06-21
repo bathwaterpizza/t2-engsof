@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from src.infrastructure.dict_category_database import DictCategoryDatabase
+from src.infrastructure.sqlite_category_database import SQLiteCategoryDatabase
 from src.application.create_category_use_case import CreateCategoryUseCase
 from src.application.get_all_categories_use_case import GetAllCategoriesUseCase
 from src.application.update_category_use_case import UpdateCategoryUseCase
@@ -8,7 +8,7 @@ from src.domain.exceptions import TaskNotFoundError
 
 
 category_bp = Blueprint("category_bp", __name__, url_prefix="/api/categories")
-category_repo = DictCategoryDatabase()
+category_repo = SQLiteCategoryDatabase()
 
 
 @category_bp.route("/", methods=["POST"])
