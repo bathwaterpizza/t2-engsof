@@ -1,16 +1,15 @@
 import sqlite3
-import os
-from typing import Any, List, Tuple
+from typing import List, Tuple
 from contextlib import contextmanager
 
 
 class SQLiteBase:
     """Classe base para gerenciar conexões SQLite"""
-    
+
     def __init__(self, db_path: str = "todo_app.db"):
         self.db_path = db_path
         self._init_db()
-    
+
     def _init_db(self):
         """Inicializa o banco de dados com as tabelas necessárias"""
         with self._get_connection() as conn:
@@ -22,7 +21,7 @@ class SQLiteBase:
                     description TEXT
                 )
             """)
-            
+
             # Tabela de tarefas
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS tasks (
@@ -36,9 +35,9 @@ class SQLiteBase:
                     FOREIGN KEY (category_id) REFERENCES categories (id)
                 )
             """)
-            
+
             conn.commit()
-    
+
     @contextmanager
     def _get_connection(self):
         """Context manager para conexões SQLite"""
@@ -48,13 +47,13 @@ class SQLiteBase:
             yield conn
         finally:
             conn.close()
-    
+
     def _execute_query(self, query: str, params: Tuple = ()) -> List[sqlite3.Row]:
         """Executa uma query SELECT e retorna os resultados"""
         with self._get_connection() as conn:
             cursor = conn.execute(query, params)
             return cursor.fetchall()
-    
+
     def _execute_command(self, command: str, params: Tuple = ()) -> int:
         """Executa um comando (INSERT, UPDATE, DELETE) e retorna linhas afetadas"""
         with self._get_connection() as conn:

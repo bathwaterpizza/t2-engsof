@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__)
 
     # Configurações básicas
-    app.config["SECRET_KEY"] = "dev-secret-key"  # Apenas para desenvolvimento
+    app.config["SECRET_KEY"] = "dev-secret-key"
 
     # Registro dos blueprints das rotas de API
     app.register_blueprint(task_bp)

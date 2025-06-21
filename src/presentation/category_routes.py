@@ -1,3 +1,5 @@
+# Rotas RESTful para categorias (Presentation Layer)
+# Fornece endpoints para CRUD de categorias usando SQLite
 from flask import Blueprint, request, jsonify
 from src.infrastructure.sqlite_category_database import SQLiteCategoryDatabase
 from src.application.create_category_use_case import CreateCategoryUseCase
@@ -7,12 +9,14 @@ from src.application.delete_category_use_case import DeleteCategoryUseCase
 from src.domain.exceptions import TaskNotFoundError
 
 
+# Blueprint de categorias
 category_bp = Blueprint("category_bp", __name__, url_prefix="/api/categories")
 category_repo = SQLiteCategoryDatabase()
 
 
 @category_bp.route("/", methods=["POST"])
 def create_category():
+    """Cria uma nova categoria"""
     data = request.get_json()
     name = data.get("name")
     description = data.get("description")
@@ -26,6 +30,7 @@ def create_category():
 
 @category_bp.route("/", methods=["GET"])
 def get_all_categories():
+    """Lista todas as categorias"""
     use_case = GetAllCategoriesUseCase(category_repo)
     categories = use_case.execute()
     return jsonify([c.to_dict() for c in categories]), 200
@@ -33,6 +38,7 @@ def get_all_categories():
 
 @category_bp.route("/<category_id>", methods=["PUT", "PATCH"])
 def update_category(category_id):
+    """Atualiza uma categoria existente"""
     data = request.get_json()
     name = data.get("name")
     description = data.get("description")
@@ -48,6 +54,7 @@ def update_category(category_id):
 
 @category_bp.route("/<category_id>", methods=["DELETE"])
 def delete_category(category_id):
+    """Remove uma categoria pelo ID"""
     use_case = DeleteCategoryUseCase(category_repo)
     try:
         use_case.execute(category_id)
