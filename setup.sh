@@ -1,7 +1,4 @@
 #!/bin/bash
-
-# Script para configurar o ambiente do projeto To-Do List
-
 echo "=== setup todo list ==="
 
 # Criar virtual environment se não existir
@@ -18,7 +15,7 @@ source venv/bin/activate
 echo "Instalando dependências..."
 pip install -r requirements.txt
 
-echo "✅ Setup concluído!"
+echo "Setup concluído!"
 echo ""
 echo "Para executar o projeto:"
 echo "  ./run.sh"
